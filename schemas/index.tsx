@@ -2,7 +2,8 @@ import * as z from "zod"
 
 export const LoginShema = z.object({
     email : z.string().email({message : "E-mail invalido"}),
-    password : z.string().min(1,{message : "a senha deve conter pelo menos um carcter"})
+    password : z.string().min(1,{message : "a senha deve conter pelo menos um carcter"}),
+    code : z.optional(z.string())
 })
 
 export const RegisterShema = z.object({

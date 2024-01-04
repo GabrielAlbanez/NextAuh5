@@ -75,7 +75,6 @@ export const RegisterForm = () => {
             headerLabel='Criar Conta'
             backButtonLabel='vc ja tem uma conta??'
             backButtonHref='/auth/login'
-            showSocial
 
         >
             <Form {...form}>

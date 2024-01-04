@@ -24,3 +24,15 @@ export const sendVerificationEmailResetPassword = async (email: string, token: s
         html: `<p>Clik <a href="${resetLink}">aqui</a>para resetar sua senha</p>`
     })
 }
+
+
+export const sendTwoFactorVerificationEmial = async(email : string, token : string)=>{
+    // const confirmLink = `http://localhost:3000/auth/new-password?token=${token}`
+
+    await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: email,
+        subject: "2FA CODE",
+        html: `<p>SUA CHAVE ${token}></p>`
+    })
+}

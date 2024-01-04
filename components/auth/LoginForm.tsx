@@ -20,6 +20,7 @@ import Link from 'next/link'
 export const LoginForm = () => {
     const serchParams = useSearchParams()
     const urlError = serchParams.get("error") === "OAuthAccountNotLinked" ? "esse email ja esta sendo usado em outro provider" : ""
+    const [showToFactor,setShowToFactor] = useState(false)
     const [error, setError] = useState<string | undefined>("")
     const [sucess, setSucess] = useState<string | undefined>("")
 
@@ -39,9 +40,11 @@ export const LoginForm = () => {
         setSucess("")
         startTransition(() => {
             login(values).then((data) => {
-                setError(data?.error)
-                setSucess(data?.success)
+                
+                
                 if(data?.error){
+                    form.reset()
+                    setError(data?.error)
                     toast.error(data?.error, {
                         position: "bottom-right",
                         autoClose: 5000,
@@ -54,6 +57,8 @@ export const LoginForm = () => {
                         });
                 }
                 if(data?.success){
+                    form.reset()
+                    setSucess(data?.success)
                     toast.success(data?.success, {
                         position: "bottom-right",
                         autoClose: 5000,
@@ -65,6 +70,22 @@ export const LoginForm = () => {
                         theme: "light",
                         });
                 }
+
+                if(data?.twoFactor){
+                    setShowToFactor(true)
+                }
+            })
+            .catch(()=>{
+                toast.error("algo deu errado", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
             })
 
         })
@@ -82,6 +103,7 @@ export const LoginForm = () => {
             <Form {...form}>
                 <form className='space-y-6' onSubmit={form.handleSubmit(onSumit)}>
                     <div className='space-y-4'>
+                     {!showToFactor ? (<>
                         <FormField control={form.control}
                             name='email'
                             render={({ field }) => (
@@ -113,7 +135,25 @@ export const LoginForm = () => {
                                     <FormMessage />
                                 </FormItem>
                             )}
+                        /></>) : (<>
+                            <FormField control={form.control}
+                            name='code'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Two Factor Code</FormLabel>
+                                    <FormControl>
+                                        <Input {...field}
+                                            disabled={isPeding}
+                                            placeholder='123456'
+                                            />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
+
+                      
+                        </>)}
 
                     </div>
                     <FormError message={urlError} />
@@ -132,7 +172,7 @@ export const LoginForm = () => {
 
                     />
                     <Button disabled={isPeding} type='submit' className='w-full'>
-                        Login
+                        {showToFactor ? "confirmar" : "Login"}
                     </Button>
                 </form>
             </Form>
