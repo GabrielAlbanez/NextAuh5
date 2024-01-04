@@ -4,8 +4,7 @@ import { CardWrapper } from './Card-Wrapper'
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from "zod"
-import { LoginShema } from '@/schemas'
-import { useSearchParams } from 'next/navigation'
+import {ResetSchema } from '@/schemas'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -15,34 +14,31 @@ import { login } from '@/actions/login'
 import { useTransition } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Link from 'next/link'
+import { reset } from '@/actions/reset'
 
-export const LoginForm = () => {
-    const serchParams = useSearchParams()
-    const urlError = serchParams.get("error") === "OAuthAccountNotLinked" ? "esse email ja esta sendo usado em outro provider" : ""
+export const ResetForm = () => {
     const [error, setError] = useState<string | undefined>("")
     const [sucess, setSucess] = useState<string | undefined>("")
 
 
     const [isPeding, startTransition] = useTransition()
 
-    const form = useForm<z.infer<typeof LoginShema>>({
-        resolver: zodResolver(LoginShema),
+    const form = useForm<z.infer<typeof ResetSchema>>({
+        resolver: zodResolver(ResetSchema),
         defaultValues: {
             email: "",
-            password: ""
         }
     })
 
-    const onSumit = (values: z.infer<typeof LoginShema>) => {
+    const onSumit = (values: z.infer<typeof ResetSchema>) => {
         setError("")
         setSucess("")
         startTransition(() => {
-            login(values).then((data) => {
+            reset(values).then((data) => {
                 setError(data?.error)
                 setSucess(data?.success)
                 if(data?.error){
-                    toast.error(data?.error, {
+                    toast.error(data.error, {
                         position: "bottom-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -54,7 +50,7 @@ export const LoginForm = () => {
                         });
                 }
                 if(data?.success){
-                    toast.success(data?.success, {
+                    toast.success(data.success, {
                         position: "bottom-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -73,10 +69,9 @@ export const LoginForm = () => {
 
     return (
         <CardWrapper
-            headerLabel='Bem vindo de Volta'
-            backButtonLabel='Não tem uma conta?'
-            backButtonHref='/auth/register'
-            showSocial
+            headerLabel='Esqueci Senha'
+            backButtonLabel='voltar para pagina de login'
+            backButtonHref='/auth/login'
 
         >
             <Form {...form}>
@@ -98,26 +93,9 @@ export const LoginForm = () => {
                             )}
                         />
 
-                        <FormField control={form.control}
-                            name='password'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Password</FormLabel>
-                                    <FormControl>
-                                        <Input {...field}
-                                            disabled={isPeding}
-                                            placeholder='******'
-                                            type='password' />
-                                    </FormControl>
-                                    <Button variant="link" size="sm" className='px-0 font-normal'><Link href='/auth/reset'>Esqueci Senha</Link></Button>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
 
                     </div>
-                    <FormError message={urlError} />
-                    {/* <FormSucess message={sucess} /> */}
+                  
                     <ToastContainer
                         position="bottom-right"
                         autoClose={5000}
@@ -132,7 +110,7 @@ export const LoginForm = () => {
 
                     />
                     <Button disabled={isPeding} type='submit' className='w-full'>
-                        Login
+                        enviar email para redefinição de senha
                     </Button>
                 </form>
             </Form>
