@@ -33,6 +33,6 @@ export const sendTwoFactorVerificationEmial = async(email : string, token : stri
         from: "onboarding@resend.dev",
         to: email,
         subject: "2FA CODE",
-        html: `<p>SUA CHAVE ${token}></p>`
+        html: `<p>SUA CHAVE ${token}</p>`
     })
 }

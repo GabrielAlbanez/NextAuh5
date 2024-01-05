@@ -42,8 +42,8 @@ export const LoginForm = () => {
             login(values).then((data) => {
                 
                 
+                
                 if(data?.error){
-                    form.reset()
                     setError(data?.error)
                     toast.error(data?.error, {
                         position: "bottom-right",
@@ -57,7 +57,6 @@ export const LoginForm = () => {
                         });
                 }
                 if(data?.success){
-                    form.reset()
                     setSucess(data?.success)
                     toast.success(data?.success, {
                         position: "bottom-right",
@@ -91,6 +90,8 @@ export const LoginForm = () => {
         })
 
     }
+
+    console.log(onSumit)
 
     return (
         <CardWrapper
@@ -145,6 +146,7 @@ export const LoginForm = () => {
                                         <Input {...field}
                                             disabled={isPeding}
                                             placeholder='123456'
+                                            type='text'
                                             />
                                     </FormControl>
                                     <FormMessage />
