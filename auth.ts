@@ -5,6 +5,7 @@ import { getUserById } from "@/data/user"
 import { db } from "@/lib/db"
 import { getTwoFactorConfirmationByUserId } from "./data/to-factor-confirmation"
 import { getAccountByUserId } from "./data/account"
+import { access } from "fs"
 
 
 
@@ -115,9 +116,16 @@ export const {
 
             if(!existingUser) return token
 
+
             const existingAccount = await getAccountByUserId(existingUser.id)
 
-            token.isOAuth = existingAccount
+
+          
+            token.isOAuth = !!existingAccount
+
+            
+
+            
 
          
             token.name = existingUser.name;

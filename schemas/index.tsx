@@ -11,15 +11,15 @@ export const SettingsShema = z.object({
     Newpassword : z.optional(z.string().min(6)),
 
 })
-.refine((data)=>{
-    if(!data.Newpassword && !data.password){
-        return false
-    }
-    return true
-},{
-    message : "new password is required",
-    path : ["Newpassword"]
-})
+// .refine((data)=>{
+//     if(!data.Newpassword && !data.password){
+//         return false
+//     }
+//     return true
+// },{
+//     message : "new password is required",
+//     path : ["Newpassword"]
+// })
 
 export const LoginShema = z.object({
     email : z.string().email({message : "E-mail invalido"}),

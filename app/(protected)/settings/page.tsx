@@ -66,7 +66,7 @@ const Settings = () => {
                 if (data?.error) {
                     toast.error(data?.error, {
                         position: "bottom-right",
-                        autoClose: 5000,
+                        autoClose: 10000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
@@ -78,7 +78,7 @@ const Settings = () => {
                 if (data?.success) {
                     toast.success(data?.success, {
                         position: "bottom-right",
-                        autoClose: 5000,
+                        autoClose: 10000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
@@ -103,7 +103,7 @@ const Settings = () => {
         })
     }
 
-    console.log(user?.isOAuth)
+    // console.log(user?.isOAuth)
 
     return (
         <Card className='w-[600px]'>
@@ -239,7 +239,7 @@ const Settings = () => {
                             )}
                           
                         </div>
-                        <Button disabled={isPending} type="submit" >Save Name</Button>
+                        <Button disabled={isPending} type="submit" >Atualizar Dados</Button>
                     </form>
                 </Form>
             </CardContent>

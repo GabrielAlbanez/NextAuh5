@@ -35,13 +35,11 @@ export const UserButton = () => {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align="end">
-        <LogoutButton>
+      <DropdownMenuContent onClick={onClick}  className="w-40" align="end">
           <DropdownMenuItem onClick={onClick} className="cursor-pointer">
-            <ExitIcon className="h-4 w-4 mr-2" />
+            <ExitIcon className="h-4 w-4 mr-2" onClick={onClick}  />
             Logout
           </DropdownMenuItem>
-        </LogoutButton>
       </DropdownMenuContent>
     </DropdownMenu>
   );

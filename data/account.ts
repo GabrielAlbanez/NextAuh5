@@ -5,11 +5,16 @@ export const getAccountByUserId = async(
 )=>{
 try {
   const account = await db.account.findFirst({
-    where : {id : userId}
+    where : {userId}
   }) 
   
   return account
+
+  console.log(account)
+
+
 } catch (error) {
+  console.log(error)
     return null
 }
 }
