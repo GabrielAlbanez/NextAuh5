@@ -19,6 +19,7 @@ export const UserInfo = ({
     console.log(user?.isTwoFactorEnabled)
 
   return (
+    <div className="h-full w-full flex items-center justify-center">
     <Card className="w-[600px] shadow-md">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">
@@ -71,5 +72,6 @@ export const UserInfo = ({
         </div>
       </CardContent>
     </Card>
+    </div>
   )
 }

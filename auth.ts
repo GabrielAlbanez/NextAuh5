@@ -21,7 +21,8 @@ export const {
     error : "/auth/error"
   },
   //esse event server para a gente ja poder verificar o campo emailVerifed no banco automatico quand ele usa um atuh de provedor extrno como google ou gihub ele indentifica isso pelo linkAccount
-   events : {
+  //esse event de linkAccount ele sabe quando e feio um auth sem ser por credentials 
+  events : {
      async linkAccount({user}){
       await db.user.update({
         where : {id : user.id},

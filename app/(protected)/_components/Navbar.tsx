@@ -22,9 +22,6 @@ function Navbar() {
         <Button asChild variant={pahtName === "/server" ? "default" : "outline"}>
           <Link href={"/server"}>Server</Link>
         </Button>
-        <Button asChild variant={pahtName === "/client" ? "default" : "outline"}>
-          <Link href={"/client"}>client</Link>
-        </Button>
         <Button asChild variant={pahtName === "/admin" ? "default" : "outline"}>
           <Link href={"/admin"}>admin</Link>
         </Button>

@@ -76,7 +76,7 @@ const Settings = () => {
                     });
                 }
                 if (data?.success) {
-                    toast.success(data?.success, {
+                    toast.success("dados atualizados", {
                         position: "bottom-right",
                         autoClose: 10000,
                         hideProgressBar: false,
