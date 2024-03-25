@@ -7,22 +7,19 @@ const font = Poppins({
 })
 import { Button } from '@/components/ui/button'
 import { LoginButton } from '@/components/auth/login-button'
+import AvatarImg from "@/assets/img/image - Copia.jpg"
 
 export default function Home() {
   return (
-    <main className='flex h-full flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-400  '>
-      <div className='space-y-6 text-center'>
-        <h1 className={cn('text-6xl font-semibold text-white drop-shadow-md', font.className)}>Auth</h1>
-        <p className='text-white text-lg'>
-          simples auth
-        </p>
-        <div>
-          <LoginButton >
-            <Button variant="secondary" size="lg">Sign in</Button>
-          </LoginButton>
+    <main className={cn("flex h-screen m-w-screen  items-center justify-between ", font.className)}>
 
+      <div className="relative w-full h-full">
+        <Image src={AvatarImg} alt='avatarImg' className='absolute inset-0 w-full h-full  object-cover opacity-15 '/>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+          <h1 className=" text-2xl text-center md:text-5xl md:pb-14">Bem-vindo à galeria da Disney!</h1>
         </div>
-      </div>
+        </div>
+  
     </main>
   )
 }

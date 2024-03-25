@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/auth'
+import { ThemeProvider } from '@/components/Theme-provider'
+import Navbar from '@/components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +24,11 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <ThemeProvider attribute="class" forcedTheme="dark" storageKey="">
+          <body className={inter.className}>
+            <Navbar/>
+            {children}</body>
+        </ThemeProvider>
       </html>
     </SessionProvider>
   )
