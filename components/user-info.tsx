@@ -18,6 +18,8 @@ export const UserInfo = ({
 
     console.log(user?.isTwoFactorEnabled)
 
+     
+
   return (
     <div className="h-full w-full flex items-center justify-center">
     <Card className="w-[600px] shadow-md">

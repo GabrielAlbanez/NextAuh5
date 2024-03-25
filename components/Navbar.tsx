@@ -13,7 +13,6 @@ import { UserButton } from "./auth/user-button";
 
 export default function Navbar() {
     const local = usePathname();
-    console.log(local);
 
     const user = userCurrentUser()
 

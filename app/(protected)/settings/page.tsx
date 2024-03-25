@@ -34,6 +34,12 @@ import {
     Switch
 } from "@/components/ui/switch"
 import { UserRole } from "@prisma/client"
+import { CldUploadWidget, CldUploadButton, CloudinaryUploadWidgetInfo, CloudinaryUploadWidgetResults } from "next-cloudinary"
+import ImguploadSettings from "../_components/ImguploadSettings"
+import {FaEdit} from "react-icons/fa";
+
+
+
 
 const Settings = () => {
 
@@ -45,6 +51,8 @@ const Settings = () => {
     //pq assim que a startTransiton inicia os ispending muda para true
     //ai vc pode bloquear o usario de mecher no form
     const [isPending, startTransition] = useTransition()
+
+    const [imgUser, setImgUser] = useState("")
 
     const form = useForm<z.infer<typeof SettingsShema>>({
         resolver: zodResolver(SettingsShema),
@@ -112,9 +120,31 @@ const Settings = () => {
                     Settings
                 </p>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col gap-6 ">
+                <div className="flex flex-col gap-4 justify-center">
+                    <ImguploadSettings imageUser={imgUser}>
+                        <CldUploadWidget
+                            onSuccess={(results: any) => {
+                                setImgUser(results.info.url)
+                            }}
+                            signatureEndpoint={"/api/sign-image"}
+                        >
+                            {({ open }) => {
+                                return (
+                                    <button className=" flex items-center justify-center w-[100px] py-2 px-2 bg-transparent rounded-md text-white shadow-md" onClick={() => open()}>
+                                        <FaEdit/>
+                                    </button>
+                                );
+                            }}
+                        </CldUploadWidget>
+                    </ImguploadSettings>
+
+
+
+                </div>
                 <Form {...form}>
                     <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+
                         <div className="space-y-4">
                             <FormField control={form.control}
                                 name="name"
@@ -213,31 +243,31 @@ const Settings = () => {
                             />
                             {user.isOAuth === false && (
                                 <>
-                                  <FormField control={form.control}
-                                name="isTwoFactorEnable"
-                                render={({ field }) => (
-                                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                                        <div className="space-y-0.5">
-                                            <FormLabel>Two Factor</FormLabel>
-                                            <FormDescription>
-                                                Ativa  verificação de duas etapas para sua conta
-                                            </FormDescription>
-                                            <FormControl>
-                                                <Switch
-                                                    disabled={isPending}
-                                                    checked={field.value}
-                                                    onCheckedChange={field.onChange}
-                                                />
-                                            </FormControl>
-                                        </div>
-                                    </FormItem>
-                                )
+                                    <FormField control={form.control}
+                                        name="isTwoFactorEnable"
+                                        render={({ field }) => (
+                                            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                                                <div className="space-y-0.5">
+                                                    <FormLabel>Two Factor</FormLabel>
+                                                    <FormDescription>
+                                                        Ativa  verificação de duas etapas para sua conta
+                                                    </FormDescription>
+                                                    <FormControl>
+                                                        <Switch
+                                                            disabled={isPending}
+                                                            checked={field.value}
+                                                            onCheckedChange={field.onChange}
+                                                        />
+                                                    </FormControl>
+                                                </div>
+                                            </FormItem>
+                                        )
 
-                                }
-                            />
+                                        }
+                                    />
                                 </>
                             )}
-                          
+
                         </div>
                         <Button disabled={isPending} type="submit" >Atualizar Dados</Button>
                     </form>
