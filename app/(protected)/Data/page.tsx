@@ -7,8 +7,9 @@ const ServerPage = async () => {
   console.log(user)
  
   return ( 
+  
     <UserInfo
-      label="💻 Server component"
+      label={`${user?.name} your data`}
       user={user}
     />
    );

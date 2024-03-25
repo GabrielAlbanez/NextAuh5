@@ -2,6 +2,9 @@
 
 import { FaUser } from "react-icons/fa";
 import { ExitIcon } from "@radix-ui/react-icons"
+import { HamburgerMenuIcon } from "@radix-ui/react-icons"
+import { PersonIcon } from "@radix-ui/react-icons"
+
 
 import {
   DropdownMenu,
@@ -17,13 +20,20 @@ import {
 import { LogoutButton } from "@/components/auth/logout-button";
 import { userCurrentUser } from "@/hooks/user-current-user";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export const UserButton = () => {
   const user = userCurrentUser();
 
+  const navigation = useRouter()
+
   const onClick = () => {
     signOut()
   };
+
+  const navigationPush=(route : string)=>{
+    navigation.push(route)
+  }
 
   return (
     <DropdownMenu>
@@ -35,12 +45,22 @@ export const UserButton = () => {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent onClick={onClick}  className="w-40" align="end">
-          <DropdownMenuItem onClick={onClick} className="cursor-pointer">
-            <ExitIcon className="h-4 w-4 mr-2" onClick={onClick}  />
-            Logout
-          </DropdownMenuItem>
+      <DropdownMenuContent  className="w-40" align="end">
+        <DropdownMenuItem onClick={()=>{navigationPush("/settings")}} className="cursor-pointer">
+          <HamburgerMenuIcon className="h-4 w-4 mr-2" onClick={()=>{navigationPush("/settings")}} />
+          Settings
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={()=>{navigationPush("/Data")}} className="cursor-pointer">
+          <PersonIcon className="h-4 w-4 mr-2" onClick={()=>{navigationPush("/Data")}} />
+          Your Data
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={onClick} className="cursor-pointer">
+          <ExitIcon className="h-4 w-4 mr-2" onClick={onClick} />
+          Logout
+        </DropdownMenuItem>
       </DropdownMenuContent>
+
+
     </DropdownMenu>
   );
 };

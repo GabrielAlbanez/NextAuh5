@@ -1,4 +1,3 @@
-import Navbar from "./_components/Navbar";
 
 interface layoutProps {
     children : React.ReactNode
@@ -6,8 +5,7 @@ interface layoutProps {
 
 const ProtectedLayout = ({children} : layoutProps) => {
     return (
-        <div className="h-full w-full flex flex-col gap-y-10 items-center py-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-400">
-            <Navbar/>
+        <div className="h-full w-full flex  items-center justify-center py-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900">
             {children}
         </div>
     );
