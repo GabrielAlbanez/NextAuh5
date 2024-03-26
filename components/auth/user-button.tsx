@@ -19,10 +19,15 @@ import {
 } from "@/components/ui/avatar";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { userCurrentUser } from "@/hooks/user-current-user";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export const UserButton = () => {
+
+  
+   
+
   const user = userCurrentUser();
 
   const navigation = useRouter()
@@ -35,11 +40,13 @@ export const UserButton = () => {
     navigation.push(route)
   }
 
+
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src={user?.image || ""} />
+          <AvatarImage src={user?.image || ""} className="object-cover" />
           <AvatarFallback className="bg-sky-500">
             <FaUser className="text-white" />
           </AvatarFallback>

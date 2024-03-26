@@ -36,9 +36,12 @@ import {
 import { UserRole } from "@prisma/client"
 import { CldUploadWidget, CldUploadButton, CloudinaryUploadWidgetInfo, CloudinaryUploadWidgetResults } from "next-cloudinary"
 import ImguploadSettings from "../_components/ImguploadSettings"
-import {FaEdit} from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { updateImg } from "@/actions/updateimg"
 
-
+type valuesDataImg = {
+    imgUser: string
+}
 
 
 const Settings = () => {
@@ -52,7 +55,7 @@ const Settings = () => {
     //ai vc pode bloquear o usario de mecher no form
     const [isPending, startTransition] = useTransition()
 
-    const [imgUser, setImgUser] = useState("")
+    const [imgUser, setImgUser] = useState<string>("")
 
     const form = useForm<z.infer<typeof SettingsShema>>({
         resolver: zodResolver(SettingsShema),
@@ -111,7 +114,29 @@ const Settings = () => {
         })
     }
 
-    // console.log(user?.isOAuth)
+    const uploadImg = (values: valuesDataImg) => {
+
+        startTransition(() => {
+            updateImg(values).then((data) => {
+                if (data?.sucess) {
+                    toast.success("imagen trocada com sucesso", {
+                        position: "bottom-right",
+                        autoClose: 10000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+            })
+            update()
+        })
+
+    }
+
+
 
     return (
         <Card className='w-[600px]'>
@@ -121,7 +146,7 @@ const Settings = () => {
                 </p>
             </CardHeader>
             <CardContent className="flex flex-col gap-6 ">
-                <div className="flex flex-col gap-4 justify-center">
+                {user?.isOAuth ? (<></>) : (<> <div className="flex flex-col gap-4 items-center justify-center">
                     <ImguploadSettings imageUser={imgUser}>
                         <CldUploadWidget
                             onSuccess={(results: any) => {
@@ -132,16 +157,20 @@ const Settings = () => {
                             {({ open }) => {
                                 return (
                                     <button className=" flex items-center justify-center w-[100px] py-2 px-2 bg-transparent rounded-md text-white shadow-md" onClick={() => open()}>
-                                        <FaEdit/>
+                                        <FaEdit />
                                     </button>
                                 );
                             }}
                         </CldUploadWidget>
                     </ImguploadSettings>
 
+                    <Button disabled={isPending} onClick={() => { uploadImg({ imgUser }) }}>
+                        Upload img
+                    </Button>
 
 
-                </div>
+
+                </div></>)}
                 <Form {...form}>
                     <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
 

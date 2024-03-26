@@ -102,6 +102,7 @@ export const {
           if (session.user) {
             session.user.name = token.name;
             session.user.email = token.email;
+            session.user.image  = token.image;
             session.user.isOAuth = token.isOAuth as boolean;
           }
 
@@ -109,7 +110,7 @@ export const {
 
            return session
          },
-        async jwt({token}){
+        async jwt({token,user, trigger, session}){
             
             if(!token.sub) return token
 
@@ -132,7 +133,13 @@ export const {
             token.name = existingUser.name;
             token.email = existingUser.email;
             token.role = existingUser.role;
+            token.image = existingUser.image;
             token.isTwoFactorEnabled = existingUser.isTwoFactorEnable;
+
+            if (trigger === "update" && session) {
+              token = {...token, user : session}
+              return token;
+            };
   
             return token
         }
