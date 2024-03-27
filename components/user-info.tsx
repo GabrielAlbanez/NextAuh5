@@ -29,7 +29,7 @@ export const UserInfo = ({
         </p>
       </CardHeader>
       <CardContent className="space-y-4">
-        {user?.image !==  null ? (<div className="flex items-center justify-center"><img src={user?.image} alt="" className="rounded-full object-cover w-[150px] h-[150px]" /></div>) : (<></>)}
+        {user?.image !==  null ? (<div className="flex items-center justify-center"><img src={user?.image || ""} alt="" className="rounded-full object-cover w-[150px] h-[150px]" /></div>) : (<></>)}
         <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
           <p className="text-sm font-medium">
             ID

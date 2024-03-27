@@ -34,9 +34,9 @@ export const newVerification = async(token:string)=>{
     data : {emailVerified : new Date(),email : existinToken.email}
   })
 
-  await db.verifyToken.delete({
-    where : {id : existinToken.id}
-  })
+  // await db.verifyToken.delete({
+  //   where : {id : existinToken.id}
+  // })
 
   return {success : "email verificado com sucesso"}
 }

@@ -3,13 +3,14 @@
 import { currentUser } from "@/components/auth/auth"
 import { getUserById } from "@/data/user"
 import { db } from "@/lib/db"
+import { revalidateTag } from "next/cache"
 
 
 type valuesData = {
-    imgUser : string | undefined
+    imgUser: string | undefined
 }
- 
-export const updateImg = async(values : valuesData )=>{
+
+export const updateImg = async (values: valuesData) => {
 
     const user = await currentUser()
 
@@ -29,15 +30,17 @@ export const updateImg = async(values : valuesData )=>{
     }
 
     await db.user.update({
-        where : {
-            id : user.id
+        where: {
+            id: user.id
         },
-        data : {image : values.imgUser}
+        data: { image: values.imgUser }
     })
-    
-    return {sucess : "imagem atualizada"}
+    revalidateTag("settings")
 
-       
+    return { sucess: "imagem atualizada" }
+
+
+
 
 }
 

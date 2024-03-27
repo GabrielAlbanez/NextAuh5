@@ -38,6 +38,7 @@ import { CldUploadWidget, CldUploadButton, CloudinaryUploadWidgetInfo, Cloudinar
 import ImguploadSettings from "../_components/ImguploadSettings"
 import { FaEdit } from "react-icons/fa";
 import { updateImg } from "@/actions/updateimg"
+import { revalidatePath } from "next/cache"
 
 type valuesDataImg = {
     imgUser: string
@@ -119,7 +120,7 @@ const Settings = () => {
         startTransition(() => {
             updateImg(values).then((data) => {
                 if (data?.sucess) {
-                    toast.success("imagen trocada com sucesso", {
+                    toast.success(data.sucess, {
                         position: "bottom-right",
                         autoClose: 10000,
                         hideProgressBar: false,
@@ -132,6 +133,7 @@ const Settings = () => {
                 }
             })
             update()
+            
         })
 
     }
