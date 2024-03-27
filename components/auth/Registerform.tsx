@@ -41,7 +41,7 @@ export const RegisterForm = () => {
             Register(values).then((data) => {
                 setError(data.error)
                 setSucess(data.success)
-                if(data.error){
+                if (data.error) {
                     toast.error(data?.error, {
                         position: "bottom-right",
                         autoClose: 5000,
@@ -51,9 +51,9 @@ export const RegisterForm = () => {
                         draggable: true,
                         progress: undefined,
                         theme: "light",
-                        });
+                    });
                 }
-                if(data.success){
+                if (data.success) {
                     toast.success(data?.success, {
                         position: "bottom-right",
                         autoClose: 5000,
@@ -63,7 +63,7 @@ export const RegisterForm = () => {
                         draggable: true,
                         progress: undefined,
                         theme: "light",
-                        });
+                    });
                 }
             })
 
@@ -77,79 +77,81 @@ export const RegisterForm = () => {
             backButtonHref='/auth/login'
 
         >
-            <Form {...form}>
-                <form className='space-y-6' onSubmit={form.handleSubmit(onSumit)}>
-                    <div className='space-y-4'>
+            {sucess ? (<> <FormSucess message={sucess} /></>) : (<>
+                <Form {...form}>
+                    <form className='space-y-6' onSubmit={form.handleSubmit(onSumit)}>
+                        <div className='space-y-4'>
 
-                        <FormField control={form.control}
-                            name='name'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        <Input {...field}
-                                            disabled={isPeding}
-                                            placeholder='gabriel'
-                                            type='text' />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
+                            <FormField control={form.control}
+                                name='name'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Name</FormLabel>
+                                        <FormControl>
+                                            <Input {...field}
+                                                disabled={isPeding}
+                                                placeholder='gabriel'
+                                                type='text' />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField control={form.control}
+                                name='email'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input {...field}
+                                                disabled={isPeding}
+                                                placeholder='gabriel.do@example.com'
+                                                type='email' />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField control={form.control}
+                                name='password'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Password</FormLabel>
+                                        <FormControl>
+                                            <Input {...field}
+                                                disabled={isPeding}
+                                                placeholder='******'
+                                                type='password' />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                        </div>
+                        <FormError message={error} />
+
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+
                         />
+                        <Button disabled={isPeding} type='submit' className='w-full'>
+                            Criar Conta!
+                        </Button>
+                    </form>
+                </Form></>)}
 
-                        <FormField control={form.control}
-                            name='email'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
-                                    <FormControl>
-                                        <Input {...field}
-                                            disabled={isPeding}
-                                            placeholder='gabriel.do@example.com'
-                                            type='email' />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField control={form.control}
-                            name='password'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Password</FormLabel>
-                                    <FormControl>
-                                        <Input {...field}
-                                            disabled={isPeding}
-                                            placeholder='******'
-                                            type='password' />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                    </div>
-                    {/* <FormError message={error} />
-                    <FormSucess message={sucess} /> */}
-                    <ToastContainer
-                        position="bottom-right"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="light"
-
-                    />
-                    <Button disabled={isPeding} type='submit' className='w-full'>
-                        Criar Conta!
-                    </Button>
-                </form>
-            </Form>
 
         </CardWrapper>
     )

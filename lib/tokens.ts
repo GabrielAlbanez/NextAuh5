@@ -35,13 +35,13 @@ export const generateVerificationTokenResetPassword = async(email:string)=>{
 
     const expires = new Date(new Date().getTime() + 3600 * 1000)
 
-    const existingToken = await getPasswordResetTokenByEmail(email)
+    // const existingToken = await getPasswordResetTokenByEmail(email)
 
-    if(existingToken){
-        await db.verifyToken.delete({
-            where : {id : existingToken.id}
-        })
-    }
+    // if(existingToken){
+    //     await db.verifyToken.delete({
+    //         where : {id : existingToken.id}
+    //     })
+    // }
 
     const createTokenVericiationResetPassword = await db.passWordResetToken.create({
         data : {
