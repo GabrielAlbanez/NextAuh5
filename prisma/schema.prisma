@@ -45,6 +45,7 @@ model User {
   accounts      Account[]
   isTwoFactorEnable Boolean @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  YourGalerry GalerryUser[]
 }
 
 model VerifyToken {
@@ -79,4 +80,11 @@ model TwoFactorConfirmation {
   userId String
   user User @relation(fields: [userId],references: [id],onDelete: Cascade)
   @@unique([userId])
+}
+
+model GalerryUser {
+  id String @id @default(cuid())
+  emailUser  String?
+  User User? @relation(fields: [emailUser], references: [email], onDelete: Cascade)
+  pictures String[] 
 }

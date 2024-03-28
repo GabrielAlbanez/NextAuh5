@@ -28,10 +28,12 @@ export default function Navbar() {
                         <div className="flex items-center gap-3 sm:gap-12">
                             <picture className=" w-[80px] sm:w-[100px]">
                                 <Link href={"/"}>
-                                <Image src={Logoo} alt="logo" width={100} height={100} />
+                                    <Image src={Logoo} alt="logo" width={100} height={100} />
                                 </Link>
                             </picture>
-                            <p className="pt-2 sm:pt-4">galeria</p>
+                            <Link href={""}><p className="pt-2 sm:pt-4">gallery</p></Link>
+                            {user && (<><Link href={"/YourGallery"}><p className="pt-2 sm:pt-4">Your gallery</p></Link></>)}
+
                         </div>
                         <div>
                             {!user ? (<>   <LoginButton >
