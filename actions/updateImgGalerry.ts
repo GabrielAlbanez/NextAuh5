@@ -1,13 +1,19 @@
+"use server"
+
 import { currentUser } from "@/components/auth/auth"
 import { getUserById } from "@/data/user"
 import { db } from "@/lib/db"
 import { revalidateTag } from "next/cache"
 
 type valuesData = {
-    imgUser: Array<string> | undefined
+    takeImg: Array<string> | undefined
 }
 
 export const UpdateImgYourGallery = async (values: valuesData) => {
+
+
+    console.log(values.takeImg)
+
     const user = await currentUser()
 
     if (!user) {
@@ -30,12 +36,12 @@ export const UpdateImgYourGallery = async (values: valuesData) => {
     })
 
     if (existingGallery) {
-        
+
         let updatedPictures: string[] = []
         if (existingGallery.pictures) {
-            updatedPictures = existingGallery.pictures.concat(values.imgUser || [])
+            updatedPictures = existingGallery.pictures.concat(values.takeImg || [])
         } else {
-            updatedPictures = values.imgUser || []
+            updatedPictures = values.takeImg || []
         }
 
         await db.galerryUser.update({
@@ -49,7 +55,7 @@ export const UpdateImgYourGallery = async (values: valuesData) => {
     } else {
         await db.galerryUser.create({
             data: {
-                pictures: values.imgUser,
+                pictures: values.takeImg,
                 emailUser: existingUser.email
             }
         })
@@ -57,5 +63,5 @@ export const UpdateImgYourGallery = async (values: valuesData) => {
 
     revalidateTag("settings")
 
-    return { success: "Imagem atualizada" }
+    return { success: "upload realizado com sucesso" }
 }

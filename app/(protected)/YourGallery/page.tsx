@@ -1,14 +1,59 @@
 "use client"
 import { Button } from '@/components/ui/button';
-import React, { useState } from 'react'
+import React, { useState, useTransition } from 'react'
 import ExampleImg from "@/assets/img/9a53eda3cf0ebe3c4220360a7a140e95.jpg"
 import Image from 'next/image';
 import ImgUploaderGallery from '../_components/ImgUploaderGallery';
 import { CldUploadWidget } from 'next-cloudinary';
 import { FaEdit } from 'react-icons/fa';
+import { UpdateImgYourGallery } from '@/actions/updateImgGalerry';
+import { toast } from 'react-toastify';
+
+type valuesData = {
+    takeImg: Array<string> | undefined
+}
 export default function page() {
 
     const [takeImg, setTakeImg] = useState<Array<string>>([])
+
+    const [isPending, startTransition] = useTransition()
+
+
+    const handleSubmitSendingImages = (values: valuesData) => {
+
+        console.log("img recebidas",values)
+
+        startTransition(() => {
+            UpdateImgYourGallery(values).then((data) => {
+                if (data?.error) {
+                    toast.error(data.error, {
+                        position: "bottom-right",
+                        autoClose: 10000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+                if (data?.success) {
+                    toast.success("add img", {
+                        position: "bottom-right",
+                        autoClose: 10000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+
+                setTakeImg([])
+            })
+        })
+    }
 
 
     return (
@@ -44,7 +89,7 @@ export default function page() {
                         </CldUploadWidget>
                     </ImgUploaderGallery>
 
-                    <Button>Submit</Button>
+                    <Button onClick={() => { handleSubmitSendingImages({takeImg}) }} disabled={isPending}>Submit</Button>
                 </div>
             </div>
 

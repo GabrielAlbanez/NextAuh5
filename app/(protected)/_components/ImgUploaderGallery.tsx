@@ -6,7 +6,6 @@ type ImgUploaderGalleryProps = {
 }
 
 export default function ImgUploaderGallery({ imageUser, children }: ImgUploaderGalleryProps) {
-    console.log("imagens vindas",imageUser)
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -19,7 +18,7 @@ export default function ImgUploaderGallery({ imageUser, children }: ImgUploaderG
     };
 
     return (
-        <div className='relative w-[250px] h-[250px]'>
+        <div className='relative w-[350px] h-[270px]'>
             {imageUser.length > 0 && (
                 <>
                     <img src={imageUser[currentImageIndex]} alt="User Image" className="w-full h-full object-cover rounded-sm" />
