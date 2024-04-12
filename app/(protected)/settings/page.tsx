@@ -117,24 +117,39 @@ const Settings = () => {
 
     const uploadImg = (values: valuesDataImg) => {
 
-        startTransition(() => {
-            updateImg(values).then((data) => {
-                if (data?.sucess) {
-                    toast.success(data.sucess, {
-                        position: "bottom-right",
-                        autoClose: 10000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
-                }
+        if (values.imgUser.length == 0) {
+            toast.error("escolha uma imagens ates de fazer o upload", {
+                position: "bottom-right",
+                autoClose: 10000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        } else {
+            startTransition(() => {
+                updateImg(values).then((data) => {
+                    if (data?.sucess) {
+                        toast.success(data.sucess, {
+                            position: "bottom-right",
+                            autoClose: 10000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    }
+                })
+                update()
+
             })
-            update()
-            
-        })
+        }
+
+
 
     }
 

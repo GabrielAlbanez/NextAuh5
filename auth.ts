@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import authConfig from "@/auth.config"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { getUserById } from "@/data/user"
+import { getPicturesGalleruYuser, getUserById } from "@/data/user"
 import { db } from "@/lib/db"
 import { getTwoFactorConfirmationByUserId } from "./data/to-factor-confirmation"
 import { getAccountByUserId } from "./data/account"
@@ -103,6 +103,10 @@ export const {
         session.user.image = token.image as string
       }
 
+      if(session.user){
+        session.user.gallery = token.galerryUserr as Array<string> | undefined
+      }
+
       if (session.user) {
         session.user.name = token.name;
         session.user.email = token.email;
@@ -119,6 +123,8 @@ export const {
 
       const existingUser = await getUserById(token.sub)
 
+      const galerryUser = await getPicturesGalleruYuser(token.email)
+
       if (!existingUser) return token
 
 
@@ -132,11 +138,11 @@ export const {
 
 
 
-
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.role = existingUser.role;
       token.image = existingUser.image;
+      token.galerryUserr = galerryUser?.map((data)=>data.pictures)
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnable;
 
       if (trigger === "update" && session) {

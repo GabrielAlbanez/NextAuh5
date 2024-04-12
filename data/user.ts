@@ -39,3 +39,22 @@ export const getUserById = async (id: string) => {
 
 
 }
+
+export const getPicturesGalleruYuser = async (email: string | null | undefined) => {
+
+    try {
+
+        const dataUser = await db.galerryUser.findMany({
+            where: {
+                emailUser : email,
+            }
+        })
+
+        return dataUser
+
+    } catch (error) {
+        return null
+    }
+
+
+}

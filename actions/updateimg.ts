@@ -29,6 +29,8 @@ export const updateImg = async (values: valuesData) => {
 
     }
 
+   
+
     await db.user.update({
         where: {
             id: user.id
