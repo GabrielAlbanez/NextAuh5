@@ -21,7 +21,7 @@ export default function page() {
 
     const handleSubmitSendingImages = (values: valuesData) => {
 
-        console.log("img recebidas",values)
+        console.log("img recebidas", values)
 
         startTransition(() => {
             UpdateImgYourGallery(values).then((data) => {
@@ -58,39 +58,38 @@ export default function page() {
 
     return (
         <div className="flex items-center justify-between  w-full h-full ">
-            <div className="w-full h-full flex items-center justify-center ">
-                <div
-                    className=" flex flex-col gap-3 items-center justify-between py-2   text-white w-1/2 rounded-md h-1/2 border-[1px] "
-                >
+            <div className="w-full h-full flex flex-col items-center justify-center  ">
 
-                    <label className="text-center">
-                        Select an Image to Upload
-                    </label>
+
+                <div className='w-1/2 h-1/2 border-[1px] flex flex-col items-center justify-center'>
                     <ImgUploaderGallery imageUser={takeImg}>
-                        <CldUploadWidget
-                            onSuccess={(results: any) => {
-                                setTakeImg((prevImages) => {
-                                    const newImages = Array.isArray(results.info.url) ? results.info.url : [results.info.url];
-                                    return [...prevImages, ...newImages];
-                                });
-                                console.log(results.info.url)
+                        <div className=' flex flex-col items-center justify-center  w-1/2 h-1/2  '>
+                            <CldUploadWidget
+                                onSuccess={(results: any) => {
+                                    setTakeImg((prevImages) => {
+                                        const newImages = Array.isArray(results.info.url) ? results.info.url : [results.info.url];
+                                        return [...prevImages, ...newImages];
+                                    });
+                                    console.log(results.info.url)
 
 
-                            }}
-                            signatureEndpoint={"/api/sign-image"}
-                        >
-                            {({ open }) => {
-                                return (
-                                    <button className=" flex items-center justify-center w-[100px] py-2 px-2 bg-transparent rounded-md text-white" onClick={() => open()}>
-                                        <FaEdit />
-                                    </button>
-                                );
-                            }}
-                        </CldUploadWidget>
+                                }}
+                                signatureEndpoint={"/api/sign-image"}
+                            >
+                                {({ open }) => {
+                                    return (
+                                        <button className=" flex items-center justify-center w-[100px] py-2 px-2 bg-transparent rounded-md text-white" onClick={() => open()}>
+                                            <FaEdit />
+                                        </button>
+                                    );
+                                }}
+                            </CldUploadWidget>
+                        </div>
                     </ImgUploaderGallery>
-
-                    <Button onClick={() => { handleSubmitSendingImages({takeImg}) }} disabled={isPending}>Submit</Button>
                 </div>
+
+
+                {/* <Button onClick={() => { handleSubmitSendingImages({takeImg}) }} disabled={isPending}>Submit</Button> */}
             </div>
 
             <div className="h-full w-[90%] flex flex-col items-center  gap-4 pt-16">
