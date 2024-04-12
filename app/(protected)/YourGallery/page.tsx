@@ -122,7 +122,7 @@ export default function page() {
                 <Button onClick={() => { handleSubmitSendingImages({ takeImg }) }} disabled={isPending}>Submit</Button>
             </div>
 
-            <div className="h-full w-[90%] flex flex-col items-center  gap-4 pt-16">
+            <div className="h-full w-[90%] flex flex-col items-center justify-center  gap-4 ">
                 <h2 className="text-xl font-bold mb-4">Your images</h2>
                 {user!.gallery[0].length == 0 ? (<div className='w-full h-full flex justify-center items-center'><h1>vc nao tem nehuma img ainda</h1></div>) : (<>
                     <div className='w-[50%] h-[80%] border-[1px] border-white rounded-2xl flex justify-center   items-center'>

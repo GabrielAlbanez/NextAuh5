@@ -33,7 +33,7 @@ export default function ShowPicturesGalleryUser({ pictures }: typepropsShowPictu
                         </>
                     )}
                     <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 hover:scale-110">
-                        <img src={pictures[currentImageIndex]} alt="User Image" className="w-[80%] h-[80%] object-cover rounded-lg shadow-lg" />
+                        <img src={pictures[currentImageIndex]} alt="User Image" className="w-[80%] h-[80%] object-cover rounded-xl shadow-lg" />
                     </div>
                 </>
             )}
