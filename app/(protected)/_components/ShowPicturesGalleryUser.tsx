@@ -21,7 +21,7 @@ export default function ShowPicturesGalleryUser({ pictures }: typepropsShowPictu
         <div className='relative w-full h-full'>
             {pictures && pictures.length > 0 && (
                 <>
-                    <img src={pictures[currentImageIndex]} alt="User Image" className="w-full h-full object-cover blur-md opacity-70 rounded-lg border-[1px]" />
+                    <img src={pictures[currentImageIndex]} alt="User Image" className="w-full h-full object-cover blur-xl opacity-60 rounded-lg border-[1px]" />
                     {pictures.length > 1 && (
                         <>
                             <div className="absolute inset-y-0 left-0 flex items-center justify-center w-1/12 bg-opacity-50 cursor-pointer z-50" onClick={nextImage}>
